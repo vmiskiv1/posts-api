@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { Post } from './entities/post.schema';
 
 import { CreatePostDto } from './dto/create-post.dto';
+import { PostSummaryDto } from './dto/post-summary.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 
 @Injectable()
@@ -17,13 +18,14 @@ export class PostsRepository {
     return await this.postModel.countDocuments();
   }
 
-  async get(page: number, limit: number): Promise<CreatePostDto[]> {
+  async get(page: number, limit: number): Promise<PostSummaryDto[]> {
     const skip = (page - 1) * limit;
 
     const posts = await this.postModel
-      .find()
+      .find({}, { content: 0 })
       .skip(skip)
       .limit(limit)
+      .sort({ publishedAt: -1 })
       .lean()
       .exec();
 
@@ -32,7 +34,6 @@ export class PostsRepository {
       title: post.title,
       description: post.description,
       imageUrl: post.imageUrl,
-      content: post.content,
       publishedAt: post.publishedAt,
     }));
   }

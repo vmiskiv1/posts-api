@@ -20,6 +20,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { CreatePostDto } from './dto/create-post.dto';
+import { PostSummaryDto } from './dto/post-summary.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostsService } from './posts.service';
 
@@ -43,7 +44,7 @@ export class PostsController {
   async getArticles(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 8,
-  ): Promise<CreatePostDto[]> {
+  ): Promise<PostSummaryDto[]> {
     return this.postsService.get(page, limit);
   }
 
@@ -59,14 +60,13 @@ export class PostsController {
     type: CreatePostDto,
   })
   async addPost(@Body() dto: CreatePostDto) {
-    console.log(dto);
-    // const post = this.postsService.add(dto);
+    const post = this.postsService.add(dto);
 
-    // if (!post) {
-    //   throw new BadRequestException({
-    //     message: 'Something went wrong when creating a post',
-    //   });
-    // }
+    if (!post) {
+      throw new BadRequestException({
+        message: 'Something went wrong when creating a post',
+      });
+    }
 
     return { message: 'Post has been successfully created' };
   }

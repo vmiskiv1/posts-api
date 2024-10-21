@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
+import { PostSummaryDto } from './dto/post-summary.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostsRepository } from './posts.repository';
 
@@ -11,7 +12,7 @@ export class PostsService {
     return await this.postsRepository.getAmount();
   }
 
-  async get(page: number, limit: number): Promise<CreatePostDto[]> {
+  async get(page: number, limit: number): Promise<PostSummaryDto[]> {
     return await this.postsRepository.get(page, limit);
   }
 
