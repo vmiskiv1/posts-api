@@ -41,7 +41,7 @@ export class PostsController {
     description: 'Successfully retrieved posts',
     type: [CreatePostDto],
   })
-  async getArticles(
+  async getPosts(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 8,
   ): Promise<PostSummaryDto[]> {
@@ -59,7 +59,7 @@ export class PostsController {
     description: 'Post successfully created.',
     type: CreatePostDto,
   })
-  async addPost(@Body() dto: CreatePostDto) {
+  async add(@Body() dto: CreatePostDto) {
     const post = this.postsService.add(dto);
 
     if (!post) {
@@ -71,13 +71,32 @@ export class PostsController {
     return { message: 'Post has been successfully created' };
   }
 
+  @Get(':id')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Get post by ID',
+    description: 'Retrieve a single post by its ID',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Successfully retrieved post',
+    type: CreatePostDto,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Post not found',
+  })
+  async getPostById(@Param('id') id: string): Promise<any> {
+    return this.postsService.getById(id);
+  }
+
   @Patch(':id')
   @ApiOperation({
     summary: 'Update a post',
     description: 'Update a post by ID.',
   })
   @ApiParam({ name: 'id', description: 'Post ID' })
-  async updateAnArticle(@Param('id') id: string, @Body() dto: UpdatePostDto) {
+  async update(@Param('id') id: string, @Body() dto: UpdatePostDto) {
     const updatedPost = await this.postsService.updateById(id, dto);
 
     return { message: 'Post has been successfully updated', updatedPost };
@@ -89,10 +108,10 @@ export class PostsController {
     description: 'Delete a post by ID.',
   })
   @ApiParam({ name: 'id', description: 'Post ID' })
-  async removeArticle(@Param('id') id: string) {
-    const deletedAticle = this.postsService.remove(id);
+  async remove(@Param('id') id: string) {
+    const post = await this.postsService.remove(id);
 
-    if (!deletedAticle) {
+    if (!post) {
       throw new BadRequestException({
         message: `Post doesn't exist or already deleted by someone else`,
       });

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { Model } from 'mongoose';
@@ -52,13 +52,19 @@ export class PostsRepository {
     return newArticle;
   }
 
-  async getById(id: string): Promise<Post> {
-    return await this.postModel.findById(id).exec();
+  async getById(id: string): Promise<any> {
+    const post = await this.postModel.findOne({ _id: id }).exec();
+
+    if (!post) {
+      throw new NotFoundException(`Post with ID ${id} not found`);
+    }
+
+    const { _id, ...rest } = post.toObject();
+
+    return { id: _id, ...rest };
   }
 
-  async remove(id: string): Promise<void> {
-    const deletedArticle = await this.postModel.findByIdAndDelete(id);
-
-    return deletedArticle.id || null;
+  async remove(id: string): Promise<Post | null> {
+    return await this.postModel.findByIdAndDelete(id);
   }
 }
