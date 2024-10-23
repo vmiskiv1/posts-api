@@ -14,7 +14,7 @@ export class PostsRepository {
     @InjectModel(Post.name) private readonly postModel: Model<Post>,
   ) {}
 
-  async getAmount() {
+  async getAmount(): Promise<number> {
     return await this.postModel.countDocuments();
   }
 
@@ -35,6 +35,7 @@ export class PostsRepository {
       description: post.description,
       imageUrl: post.imageUrl,
       publishedAt: post.publishedAt,
+      updatedAt: post.updatedAt,
     }));
   }
 
@@ -42,6 +43,10 @@ export class PostsRepository {
     const updatedArticle = await this.postModel.findByIdAndUpdate(id, dto, {
       new: true,
     });
+
+    if (!updatedArticle) {
+      throw new NotFoundException(`Post with id ${id} not found`);
+    }
 
     return updatedArticle;
   }
@@ -52,14 +57,14 @@ export class PostsRepository {
     return newArticle;
   }
 
-  async getById(id: string): Promise<any> {
-    const post = await this.postModel.findOne({ _id: id }).exec();
+  async getById(id: string): Promise<Post> {
+    const post = await this.postModel.findOne({ _id: id }).lean().exec();
 
     if (!post) {
       throw new NotFoundException(`Post with ID ${id} not found`);
     }
 
-    const { _id, ...rest } = post.toObject();
+    const { _id, ...rest } = post;
 
     return { id: _id, ...rest };
   }

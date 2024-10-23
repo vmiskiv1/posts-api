@@ -3,5 +3,6 @@ export class PostSummaryDto {
   title: string;
   description: string;
   imageUrl?: string;
-  publishedAt: string;
+  publishedAt?: string;
+  updatedAT?: string;
 }

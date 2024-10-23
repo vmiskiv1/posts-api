@@ -15,8 +15,11 @@ export class Post extends Document {
   @Prop({ required: false })
   content?: string;
 
-  @Prop({ required: true })
-  publishedAt: string;
+  @Prop({ required: false })
+  publishedAt?: string;
+
+  @Prop({ required: false })
+  updatedAt?: string;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);

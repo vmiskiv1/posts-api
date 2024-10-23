@@ -13,12 +13,7 @@ import configuration from './configuration';
     ConfigModule.forRoot({
       load: [configuration],
       validationSchema: Joi.object({
-        NATURE_NEWS_URL: Joi.string().default(
-          'https://newsapi.org/v2/everything?q=bitcoin',
-        ),
-        API_KEY: Joi.string().default(''),
         MONGODB_URI: Joi.string().default(''),
-        JWT_SECRET: Joi.string().default(''),
         PORT: Joi.number().default(8080),
       }),
     }),

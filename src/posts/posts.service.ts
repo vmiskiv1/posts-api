@@ -1,14 +1,15 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { PostSummaryDto } from './dto/post-summary.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { Post } from './entities/post.schema';
 import { PostsRepository } from './posts.repository';
 
 @Injectable()
 export class PostsService {
   constructor(private readonly postsRepository: PostsRepository) {}
 
-  async getAmountPosts() {
+  async getAmount(): Promise<number> {
     return await this.postsRepository.getAmount();
   }
 
@@ -16,27 +17,19 @@ export class PostsService {
     return await this.postsRepository.get(page, limit);
   }
 
-  async add(dto: CreatePostDto) {
+  async add(dto: CreatePostDto): Promise<Post> {
     return await this.postsRepository.add(dto);
   }
 
-  async getById(id: string) {
-    const foundedArticle = await this.postsRepository.getById(id);
-
-    if (!foundedArticle) {
-      throw new NotFoundException('Article not found');
-    }
-
-    return foundedArticle;
+  async getById(id: string): Promise<Post> {
+    return await this.postsRepository.getById(id);
   }
 
-  async updateById(id: string, dto: UpdatePostDto) {
-    const updatedArticle = await this.postsRepository.updateById(id, dto);
-
-    return updatedArticle;
+  async updateById(id: string, dto: UpdatePostDto): Promise<Post> {
+    return await this.postsRepository.updateById(id, dto);
   }
 
-  remove(id: string) {
-    return this.postsRepository.remove(id);
+  async remove(id: string): Promise<Post | null> {
+    return await this.postsRepository.remove(id);
   }
 }

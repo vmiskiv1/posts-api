@@ -1,3 +1,36 @@
+# NestJS BlogApp API
+
+##### [Link to deployed backend application Swagger documentation](https://vmiskiv-posts-api.onrender.com/api/docs)
+
+###### \* need to wait around 2 minutes because the server has been deployed on free cloud platform
+
+##### Step 1: Clone or download `Nest` repo and install dependecies
+
+- Make sure that Node is installed on your machine (requires node `v18.0` and higher) otherwise download LTS version https://nodejs.org/en/download
+- Download the repo via HTTP/SSH. Open your terminal on your machine (git bash, powershell etc) and run `https://github.com/vmiskiv1/posts-api.git` or via SSH `git@github.com:vmiskiv1/posts-api.git`
+- Open terminal inside the folder and and run script: `npm install` or `yarn`
+- Environment Variables for local deployment
+
+Create a .env file in the root directory of the project, and add any necessary environment variables. Here's an example:
+
+```
+MONGODB_URI=your mongodb URI
+PORT=your preferable port
+```
+
+- After installing all dependencies run: `npm run build`
+- Run the server `npm run start`. Server should start on port `8080`
+- Make sure the server is started. Then open Swagger API documentation: http://localhost:8080/api/docs
+
+##### Step 2: Download the client repo and install dependecies
+
+- Download the client repo https://github.com/vmiskiv1/posts
+- Follow steps according to Client's [README.md](https://github.com/vmiskiv1/posts/blob/master/README.md)
+
+## License
+
+Nest is [MIT licensed](LICENSE).
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
@@ -21,28 +54,9 @@
 </p>
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-# NestJS App
-##### [Link to deployed backend application](https://vmiskiv-devit-server-api.onrender.com/api-documentation) 
-###### * need to wait around 2 minutes because the server has been deployed on free cloud platform
-
- ##### Step 1:  Clone or download `Nest` repo and install dependecies
-- Make sure that Node is installed on your machine (requires node `v18.0` and higher) otherwise download LTS version https://nodejs.org/en/download
-- Download the repo via HTTP/SSH. Open your terminal on your machine (git bash, powershell etc) and run `https://github.com/vasylmiskiv/dit-client.git` or via SSH `git@github.com:vasylmiskiv/dit-client.git`
-- Open terminal inside the folder and and run script: `npm install` or `yarn`
-- After installing all dependencies run: `npm run build`
-- Run the server `npm run start`. Server should start on port `8080`
-- Make sure the server is started. Then open Swagger API documentation: http://localhost:8080/api-documentation
-##### Step 2: Download the client repo and install dependecies 
-- Download the client repo https://github.com/vasylmiskiv/dit-client
-- Follow steps according to Client's [README.md](https://github.com/vasylmiskiv/dit-client/blob/master/README.md)
-
-## Stay in touch
+  
+  ## Stay in touch
 
 - Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
 - Website - [https://nestjs.com](https://nestjs.com/)
 - Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).

@@ -9,5 +9,6 @@ export function setupSwagger(app) {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, document); // Swagger UI будет доступен по /api/docs
+
+  SwaggerModule.setup('api/docs', app, document);
 }

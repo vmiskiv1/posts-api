@@ -56,7 +56,7 @@ export class PostsController {
   })
   @ApiCreatedResponse({
     status: 201,
-    description: 'Post successfully created.',
+    description: 'Post successfully created',
     type: CreatePostDto,
   })
   async add(@Body() dto: CreatePostDto) {
@@ -64,7 +64,7 @@ export class PostsController {
 
     if (!post) {
       throw new BadRequestException({
-        message: 'Something went wrong when creating a post',
+        message: 'Something went wrong when adding a post',
       });
     }
 

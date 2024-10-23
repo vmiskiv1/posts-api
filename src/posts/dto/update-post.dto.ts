@@ -25,7 +25,7 @@ export class UpdatePostDto extends PartialType(CreatePostDto) {
   content?: string;
 
   @ApiProperty()
-  @IsString() // TODO: change to date
+  @IsString()
   @IsNotEmpty()
-  publishedAt?: string;
+  updatedAt?: string;
 }

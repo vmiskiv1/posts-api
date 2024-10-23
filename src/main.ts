@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import * as cookieParser from 'cookie-parser';
+import 'dotenv/config';
 import { AppModule } from './app.module';
 import { setupSwagger } from './swagger';
-require('dotenv').config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -28,4 +27,5 @@ async function bootstrap() {
 
   await app.listen(8080);
 }
+
 bootstrap();
