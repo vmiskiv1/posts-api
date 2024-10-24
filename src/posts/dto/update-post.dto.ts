@@ -23,9 +23,4 @@ export class UpdatePostDto extends PartialType(CreatePostDto) {
   @IsOptional()
   @IsString()
   content?: string;
-
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  updatedAt?: string;
 }
